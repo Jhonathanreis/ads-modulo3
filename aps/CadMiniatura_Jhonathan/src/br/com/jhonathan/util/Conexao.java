@@ -31,12 +31,12 @@ public class Conexao {
     public static Connection getConexao(){
         try
         {
+                String driver = "org.postgresql.Driver";
                 String url = "jdbc:postgresql://debian:5432/postgres";
                 String user = "postgres";
                 String password = "1234";
                 
-                
-                a
+                Class.forName(driver);
                 conexao = DriverManager.getConnection(url, user, password);
         }
         catch(ClassNotFoundException e){
@@ -46,8 +46,6 @@ public class Conexao {
             e.printStackTrace();
         }
         
-        g
-                
-                f
-                
+        return conexao;    
     }  
+}
