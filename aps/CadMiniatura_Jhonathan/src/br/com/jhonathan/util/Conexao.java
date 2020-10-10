@@ -23,7 +23,7 @@ public class Conexao {
         try
         {
                 String driver = "org.postgresql.Driver";
-                String url = "jdbc:postgresql://debian:5432/jhonlinux";
+                String url = "jdbc:postgresql://debian:5432/postgres";
                 String user = "postgres";
                 String password = "1234";
                   
