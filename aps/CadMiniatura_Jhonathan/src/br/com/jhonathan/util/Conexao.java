@@ -1,7 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  -------------------------------------------------------------------------------------------------->
+ *  Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
+ *  Criado em  : 10/10/2020 17:50:31 
+ *  Instituição: FACULDADE SENAI FATESG
+ *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
+ *  Disciplina : APS - Arquitetura e Projeto de Software
+ *  Aluno      : Jhonathan dos reis
+ *  Projeto    : NOME DO PROJETO
+ *  Exercício  : Nome do Exercício
+ *  ---------------------------------------------------------------------------------------------------
+ *  Propósito do arquivo.
+ *  ---------------------------------------------------------------------------------------------------| 
  */
 package br.com.jhonathan.util;
 
@@ -22,12 +31,12 @@ public class Conexao {
     public static Connection getConexao(){
         try
         {
-                String driver = "org.postgresql.Driver";
                 String url = "jdbc:postgresql://debian:5432/postgres";
                 String user = "postgres";
                 String password = "1234";
-                  
-                Class.forName(driver);
+                
+                
+                a
                 conexao = DriverManager.getConnection(url, user, password);
         }
         catch(ClassNotFoundException e){
@@ -37,6 +46,8 @@ public class Conexao {
             e.printStackTrace();
         }
         
-        return conexao;    
+        g
+                
+                f
+                
     }  
-}
