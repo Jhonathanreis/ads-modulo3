@@ -6,10 +6,10 @@
  *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
  *  Disciplina : APS - Arquitetura e Projeto de Software
  *  Aluno      : Jhonathan dos reis
- *  Projeto    : NOME DO PROJETO
- *  Exercício  : Nome do Exercício
+ *  Projeto    : PROJETO CAMADAS
+ *  Exercício  : Cadastro de miniaturas
  *  ---------------------------------------------------------------------------------------------------
- *  Propósito do arquivo.
+ *  Realiza a conexão com o banco de dados.
  *  ---------------------------------------------------------------------------------------------------| 
  */
 package br.com.jhonathan.util;
@@ -20,32 +20,27 @@ import java.sql.SQLException;
 
 /**
  *
- * @author JHONATHAN
- * Conexão com o banco
+ * @author JHONATHAN Conexão com o banco
  */
-
 public class Conexao {
-    
+
     private static Connection conexao = null;
-    
-    public static Connection getConexao(){
-        try
-        {
-                String driver = "org.postgresql.Driver";
-                String url = "jdbc:postgresql://debian:5432/postgres";
-                String user = "postgres";
-                String password = "1234";
-                
-                Class.forName(driver);
-                conexao = DriverManager.getConnection(url, user, password);
-        }
-        catch(ClassNotFoundException e){
+
+    public static Connection getConexao() {
+        try {
+            String driver = "org.postgresql.Driver";
+            String url = "jdbc:postgresql://debian:5432/miniaturas";
+            String user = "postgres";
+            String password = "1234";
+
+            Class.forName(driver);
+            conexao = DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        
-        return conexao;    
-    }  
+
+        return conexao;
+    }
 }

@@ -8,8 +8,8 @@ ${licensePrefix} Instituição: FACULDADE SENAI FATESG
 ${licensePrefix} Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
 ${licensePrefix} Disciplina : APS - Arquitetura e Projeto de Software
 ${licensePrefix} Aluno      : Jhonathan dos reis
-${licensePrefix} Projeto    : NOME DO PROJETO
-${licensePrefix} Exercício  : Nome do Exercício
+${licensePrefix} Projeto    : PROJETO CAMADAS
+${licensePrefix} Exercício  : Cadastro de miniaturas
 ${licensePrefix} ---------------------------------------------------------------------------------------------------
 ${licensePrefix} Propósito do arquivo.
 ${licensePrefix} ---------------------------------------------------------------------------------------------------| 
