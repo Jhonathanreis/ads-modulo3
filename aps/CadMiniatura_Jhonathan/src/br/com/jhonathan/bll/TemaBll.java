@@ -82,4 +82,12 @@ public class TemaBll {
             throw e;
         }
     }
+    
+    public Tema getTemaNome(String nome) throws Exception {
+        try {
+            return temaDal.getTemaNome(nome);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

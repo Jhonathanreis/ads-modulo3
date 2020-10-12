@@ -1,7 +1,7 @@
 /*
  *  -------------------------------------------------------------------------------------------------->
  *  Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
- *  Criado em  : 11/10/2020 18:52:55 
+ *  Criado em  : 11/10/2020 22:22:52 
  *  Instituição: FACULDADE SENAI FATESG
  *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
  *  Disciplina : APS - Arquitetura e Projeto de Software
@@ -14,8 +14,8 @@
  */
 package br.com.jhonathan.bll;
 
-import br.com.jhonathan.dal.FabricanteDal;
-import br.com.jhonathan.model.Fabricante;
+import br.com.jhonathan.dal.TipoMiniaturaDal;
+import br.com.jhonathan.model.TipoMiniatura;
 import static br.com.jhonathan.bll.ValidacoesBll.*;
 import java.util.ArrayList;
 
@@ -23,64 +23,64 @@ import java.util.ArrayList;
  *
  * @author JHONATHAN
  */
-public class FabricanteBll {
+public class TipoMiniaturaBll {
 
-    private FabricanteDal fabricanteDal;
+    private TipoMiniaturaDal miniaturaDal;
 
-    public FabricanteBll() throws Exception {
-        fabricanteDal = new FabricanteDal();
+    public TipoMiniaturaBll() throws Exception {
+        miniaturaDal = new TipoMiniaturaDal();
     }
 
-    public void Adicionar(Fabricante fabricante) throws Exception {
+    public void Adicionar(TipoMiniatura miniatura) throws Exception {
         try {
-            validarNome(fabricante.getFab_nome());
-            fabricanteDal.addFabricante(fabricante);
+            validarNome(miniatura.getTmi_tipo());
+            miniaturaDal.addTipoMiniatura(miniatura);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Ja existe um fabricante com este nome!";
+                mensagem = "Ja existe uma miniatura com este tipo!";
             }
             throw new Exception(mensagem);
         }
     }
 
-    public void Alterar(Fabricante fabricante) throws Exception {
+    public void Alterar(TipoMiniatura miniatura) throws Exception {
         try {
-            validarNome(fabricante.getFab_nome());
-            fabricanteDal.updateFabricante(fabricante);
+            validarNome(miniatura.getTmi_tipo());
+            miniaturaDal.updateTipoMiniatura(miniatura);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Ja existe um fabricante com este nome";
+                mensagem = "Ja existe uma miniatura com este tipo";
             }
             throw new Exception(mensagem);
         }
     }
 
-    public void Remover(Fabricante fabricante) throws Exception {
+    public void Remover(TipoMiniatura miniatura) throws Exception {
         try {
-            validarNome(fabricante.getFab_nome());
-            fabricanteDal.deleteFabricante(fabricante.getFab_iden());
+            validarNome(miniatura.getTmi_tipo());
+            miniaturaDal.deleteTipoMiniatura(miniatura);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("update")) {
-                mensagem = "Existe uma miniatura com está fabricante cadastrada!";
+                mensagem = "Existe um fabricante com esta miniatura cadastrada!";
             }
             throw new Exception(mensagem);
         }
     }
 
-    public ArrayList<Fabricante> getConsulta() throws Exception {
+    public ArrayList<TipoMiniatura> getConsulta() throws Exception {
         try {
-            return fabricanteDal.getAllFabricantes();
+            return miniaturaDal.getAllTipoMiniaturas();
         } catch (Exception e) {
             throw new Exception(e);
         }
     }
 
-    public Fabricante getConsultaPorId(int fab_iden) throws Exception {
+    public TipoMiniatura getConsultaPorId(int tmi_iden) throws Exception {
         try {
-            return fabricanteDal.getFabricanteById(fab_iden);
+            return miniaturaDal.getTipoMiniaturaById(tmi_iden);
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -88,11 +88,11 @@ public class FabricanteBll {
         }
     }
 
-    public Fabricante getFabricanteNome(String nome) throws Exception {
+    public TipoMiniatura getTipoMiniaturaNome(String nome) throws Exception {
         try {
-            return fabricanteDal.getFabricanteNome(nome);
+            return miniaturaDal.getTipoMiniaturaNome(nome);
         } catch (Exception e) {
-            throw new Exception(e);
+            throw e;
         }
     }
 }

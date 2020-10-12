@@ -35,19 +35,57 @@ public class MiniaturaDal {
         conexao = Conexao.getConexao();
     }
 
-    public void addMiniatura(Miniatura miniatura) {
+    public void addMiniatura(Miniatura miniatura) throws Exception {
+        String sql = "INSERT INTO miniaturas(min_modelo, "
+                    + "min_ano, min_observacoes, min_edicao, min_escala, min_valor, min_fab_iden, min_tmi_iden, min_tem_iden) VALUES (?,?,?,?,?,?,?,?,?)";
+        try {  
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);    
+            preparedStatement.setString(1, miniatura.getMin_modelo());
+            preparedStatement.setInt(2, miniatura.getMin_ano());
+            preparedStatement.setString(3, miniatura.getMin_observacoes());
+            preparedStatement.setString(4, miniatura.getMin_edicao());
+            preparedStatement.setString(5, miniatura.getMin_escala());
+            preparedStatement.setInt(6, miniatura.getMin_valor());      
+            preparedStatement.setInt(7, miniatura.getFabricante().getFab_iden());      
+            preparedStatement.setInt(8, miniatura.getTipoDeMiniatura().getTmi_iden());      
+            preparedStatement.setInt(9, miniatura.getTema().getTem_iden());      
+            preparedStatement.executeUpdate();
 
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
-    public void deleteMiniatura(int min_iden) {
-
+    public void deleteMiniatura(int min_iden) throws SQLException {
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement("DELETE FROM miniaturas WHERE min_iden=?");
+            preparedStatement.setInt(1, min_iden);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        }
     }
 
-    public void updateMiniatura(Miniatura miniatura) {
-
+    public void updateMiniatura(Miniatura miniatura) throws SQLException {
+        PreparedStatement preparedStatement = conexao.prepareStatement("UPDATE miniaturas SET min_iden=?, min_modelo=?,"
+                    + " min_ano=?, min_obervacoes=?, min_edicao=?, min_escala=?, min_valor=? min_fab_iden=?, min_tmi_iden=?, min_tem_iden=? WHERE min_iden=?");
+        try {
+            preparedStatement.setString(1, miniatura.getMin_modelo());
+            preparedStatement.setInt(2, miniatura.getMin_ano());
+            preparedStatement.setString(3, miniatura.getMin_observacoes());
+            preparedStatement.setString(4, miniatura.getMin_edicao());
+            preparedStatement.setString(5, miniatura.getMin_escala());
+            preparedStatement.setInt(6, miniatura.getMin_valor());
+            preparedStatement.setInt(7, miniatura.getFabricante().getFab_iden());      
+            preparedStatement.setInt(8, miniatura.getTipoDeMiniatura().getTmi_iden());      
+            preparedStatement.setInt(9, miniatura.getTema().getTem_iden());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        }
     }
 
-    public ArrayList<Miniatura> getAllMiniaturas() {
+    public ArrayList<Miniatura> getAllMiniaturas() throws SQLException {
         ArrayList<Miniatura> miniaturas = new ArrayList<Miniatura>();
 
         String sql = "select * from miniaturas";
@@ -61,13 +99,13 @@ public class MiniaturaDal {
                 miniatura.setMin_iden(rs.getInt("min_iden"));
                 miniatura.setMin_modelo(rs.getString("min_modelo"));
                 miniatura.setMin_ano(rs.getInt("min_ano"));
-                miniatura.setMin_observacoes(rs.getString("min_observações"));
+                miniatura.setMin_observacoes(rs.getString("min_observacoes"));
                 miniatura.setMin_edicao(rs.getString("min_edicao"));
                 miniatura.setMin_escala(rs.getString("min_escala"));
                 miniatura.setMin_valor(rs.getInt("min_valor"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return miniaturas;
     }
@@ -78,7 +116,7 @@ public class MiniaturaDal {
 
         try {
             PreparedStatement preparedStatement = conexao.
-                    prepareStatement("select * from miniatura where min_iden=?");
+                    prepareStatement("select * from miniaturas where min_iden=?");
             preparedStatement.setInt(1, min_iden);
             ResultSet rs = preparedStatement.executeQuery();
             
@@ -86,12 +124,12 @@ public class MiniaturaDal {
                 miniatura.setMin_iden(rs.getInt("min_iden"));
                 miniatura.setMin_modelo(rs.getString("min_modelo"));
                 miniatura.setMin_ano(rs.getInt("min_ano"));
-                miniatura.setMin_observacoes(rs.getString("min_observações"));
+                miniatura.setMin_observacoes(rs.getString("min_observacoes"));
                 miniatura.setMin_edicao(rs.getString("min_edicao"));
                 miniatura.setMin_escala(rs.getString("min_escala"));
                 miniatura.setMin_valor(rs.getInt("min_valor"));
             } else {
-                throw new Exception("Nenhuma miniatura com o id " + min_iden);
+                throw new Exception("Nenhuma miniatura com o id ");
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage() + "dal - ");

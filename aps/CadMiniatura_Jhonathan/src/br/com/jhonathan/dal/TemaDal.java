@@ -115,4 +115,23 @@ public class TemaDal {
         }
         return tema;
     }
+    
+    public Tema getTemaNome(String nome) throws Exception {
+        Tema tema = new Tema();
+
+        String sql = "SELECT * FROM temas WHERE tem_nome=?";
+
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                tema.setTem_iden(rs.getInt("tem_iden"));
+                tema.setTem_nome(rs.getString("tem_nome"));
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return tema;
+    }
 }

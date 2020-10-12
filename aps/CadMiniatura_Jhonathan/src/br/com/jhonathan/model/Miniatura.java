@@ -110,4 +110,36 @@ public class Miniatura {
     public void setMin_valor(int min_valor) {
         this.min_valor = min_valor;
     }
+
+    public Fabricante getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(Fabricante fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    public TipoMiniatura getTipoDeMiniatura() {
+        return tipoDeMiniatura;
+    }
+
+    public void setTipoDeMiniatura(TipoMiniatura tipoDeMiniatura) {
+        this.tipoDeMiniatura = tipoDeMiniatura;
+    }
+
+    public Tema getTema() {
+        return tema;
+    }
+
+    public void setTema(Tema tema) {
+        this.tema = tema;
+    }
+
+    public ArrayList<Foto> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(ArrayList<Foto> fotos) {
+        this.fotos = fotos;
+    }
 }

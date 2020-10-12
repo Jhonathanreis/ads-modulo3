@@ -40,7 +40,7 @@ public class FabricanteDal {
         String sql = "INSERT INTO fabricantes(fab_nome) VALUES(?)";
         try {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setString(1, fabricante.getFab_nome());            
+            preparedStatement.setString(1, fabricante.getFab_nome());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -87,14 +87,14 @@ public class FabricanteDal {
         return lista;
     }
 
-    public Fabricante getFabricanteById(int fab_iden) throws Exception {    
+    public Fabricante getFabricanteById(int fab_iden) throws Exception {
         Fabricante fabricante = new Fabricante();
-        try {  
+        try {
             PreparedStatement preparedStatement = conexao.
                     prepareStatement("SELECT * FROM fabricantes WHERE fab_iden=?");
             preparedStatement.setInt(1, fab_iden);
             ResultSet rs = preparedStatement.executeQuery();
-        if (rs.next()) {
+            if (rs.next()) {
                 fabricante.setFab_iden(rs.getInt("fab_iden"));
                 fabricante.setFab_nome(rs.getString("fab_nome"));
             } else {
@@ -104,5 +104,24 @@ public class FabricanteDal {
             throw new Exception(e.getMessage());
         }
         return fabricante;
+    }
+
+    public Fabricante getFabricanteNome(String nome) throws Exception {
+        Fabricante fab = new Fabricante();
+
+        String sql = "SELECT * FROM fabricantes WHERE fab_nome=?";
+
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                fab.setFab_iden(rs.getInt("fab_iden"));
+                fab.setFab_nome(rs.getString("fab_nome"));
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return fab;
     }
 }
