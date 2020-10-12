@@ -14,7 +14,10 @@
  */
 package br.com.jhonathan.dal;
 
+import br.com.jhonathan.model.Fabricante;
 import br.com.jhonathan.model.Miniatura;
+import br.com.jhonathan.model.Tema;
+import br.com.jhonathan.model.TipoMiniatura;
 import br.com.jhonathan.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,7 +88,7 @@ public class MiniaturaDal {
         }
     }
 
-    public ArrayList<Miniatura> getAllMiniaturas() throws SQLException {
+    public ArrayList<Miniatura> getAllMiniaturas() throws SQLException, Exception {
         ArrayList<Miniatura> miniaturas = new ArrayList<Miniatura>();
 
         String sql = "select * from miniaturas";
@@ -103,6 +106,21 @@ public class MiniaturaDal {
                 miniatura.setMin_edicao(rs.getString("min_edicao"));
                 miniatura.setMin_escala(rs.getString("min_escala"));
                 miniatura.setMin_valor(rs.getInt("min_valor"));
+                
+                //Utilizando chave estrangeira!!! Estudar para aplicação no netbeans
+                int min_fab_iden = rs.getInt("min_fab_iden");
+                int min_tmi_iden = rs.getInt("min_tmi_iden");
+                int min_tem_iden = rs.getInt("min_tem_iden");
+                FabricanteDal fdal = new FabricanteDal();
+                TipoMiniaturaDal tipoDal = new TipoMiniaturaDal();
+                TemaDal tdal = new TemaDal();
+                Fabricante objetoFabricante = fdal.getFabricanteById(min_fab_iden);
+                TipoMiniatura objetoTipoMiniatura = tipoDal.getTipoMiniaturaById(min_tmi_iden);
+                Tema objetoTema  = tdal.getTemaById(min_tem_iden);              
+                miniatura.setFabricante(objetoFabricante);
+                miniatura.setTipoDeMiniatura(objetoTipoMiniatura);
+                miniatura.setTema(objetoTema);
+                miniaturas.add(miniatura);
             }
         } catch (SQLException e) {
             throw e;

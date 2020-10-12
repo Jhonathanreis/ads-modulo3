@@ -59,7 +59,6 @@ public class MiniaturaBll {
     
     public void Remover(Miniatura miniatura) throws Exception {
         try {
-            validarNome(miniatura.getMin_modelo());
             miniaturaDal.deleteMiniatura(miniatura.getMin_iden());
         } catch (Exception e) {
             String mensagem = e.getMessage();

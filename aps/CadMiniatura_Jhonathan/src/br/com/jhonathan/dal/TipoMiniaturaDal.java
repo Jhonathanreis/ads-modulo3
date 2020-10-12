@@ -91,7 +91,7 @@ public class TipoMiniaturaDal {
         TipoMiniatura miniatura = new TipoMiniatura();
         try {  
             PreparedStatement preparedStatement = conexao.
-                    prepareStatement("SELECT * FROM tipo_miniatura WHERE tmi_iden=?");
+                    prepareStatement("SELECT * FROM tipo_miniaturas WHERE tmi_iden=?");
             preparedStatement.setInt(1, tmi_iden);
             ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {

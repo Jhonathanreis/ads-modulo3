@@ -53,18 +53,17 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         fabricante = new Fabricante();
         temaBll = new TemaBll();
         tema = new Tema();
-        preencherGridTema();
-        preencherGridFabricante();
-        preencherGridTipoMiniatura();
-        preencherGridMiniatura();
+        
         preencherComboboxFabricante();
-        popularComboboxTema();
+        PreencherComboboxTema();
         preencherComboboxTipo();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
-        
-        
+        preencherGridMiniatura();      
+        preencherGridTema();
+        preencherGridFabricante();
+        preencherGridTipoMiniatura();
     }
 
     private void preencherGridTema() {
@@ -141,8 +140,8 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             DefaultTableModel tabelaMiniatura = (DefaultTableModel) jTableMiniatura.getModel();
             tabelaMiniatura.setRowCount(0);
 
-            //
-            Object[] linha = new Object[7];
+            
+            Object[] linha = new Object[10];
             
             ArrayList<Miniatura> miniaturas = new MiniaturaBll().getConsulta();
                                 
@@ -154,6 +153,9 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                 linha[4] = miniatura.getMin_edicao();
                 linha[5] = miniatura.getMin_escala();
                 linha[6] = "" + miniatura.getMin_valor();
+                linha[7] = "" + miniatura.getFabricante().getFab_nome();
+                linha[8] = "" + miniatura.getTipoDeMiniatura().getTmi_tipo();
+                linha[9] = "" + miniatura.getTema().getTem_nome();
                 tabelaMiniatura.addRow(linha);
             }
 
@@ -224,7 +226,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
     }
 
-    private void popularComboboxTema() throws Exception {
+    private void PreencherComboboxTema() throws Exception {
         ArrayList<Tema> lista = temaBll.getConsulta();
 
         jComboBoxTemas.removeAllItems();
@@ -674,11 +676,11 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MODELO", "ANO", "OBSERVAÇÕES", "ESCALA", "EDICAO", "VALOR"
+                "ID", "MODELO", "ANO", "OBSERVAÇÕES", "ESCALA", "EDICAO", "VALOR", "FABRICANTE", "TIPO", "TEMAS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1102,6 +1104,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             miniatura.setMin_iden(Integer.parseInt(jTextFieldIdMiniatura.getText()));
             miniaturaBll.Remover(miniatura);
             preencherFormularioMiniatura();
+            preencherGridMiniatura();
 
             JOptionPane.showMessageDialog(this, "Miniatura excluida!");
 
