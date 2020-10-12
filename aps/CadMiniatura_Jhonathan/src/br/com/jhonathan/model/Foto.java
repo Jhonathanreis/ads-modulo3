@@ -26,7 +26,7 @@ public class Foto {
     private int fot_iden = 0;
     private String fot_caminho = "";
     private String fot_descricao = "";
-    private int fot_min_iden = 0;
+    private Miniatura miniatura;
    
 
     //---CONSTRUTOR PADRÃO---//
@@ -35,11 +35,11 @@ public class Foto {
     }
 
     //---CONSTRUTOR PASSANDO PARAMETRO---//
-    public Foto(int fot_iden, String fot_caminho, String fot_descricao, int fot_min_iden) {
+    public Foto(int fot_iden, String fot_caminho, String fot_descricao, Miniatura miniatura) {
         this.fot_iden = fot_iden;
         this.fot_caminho = fot_caminho;
         this.fot_descricao = fot_descricao;
-        this.fot_min_iden = fot_min_iden;
+        this.miniatura = miniatura;
     }
     
     //---GETERS E SETTERS---//
@@ -65,13 +65,13 @@ public class Foto {
 
     public void setFot_descricao(String fot_descricao) {
         this.fot_descricao = fot_descricao;
-    }   
-
-    public int getFot_min_iden() {
-        return fot_min_iden;
     }
 
-    public void setFot_min_iden(int fot_min_iden) {
-        this.fot_min_iden = fot_min_iden;
+    public Miniatura getMiniatura() {
+        return miniatura;
+    }
+
+    public void setMiniatura(Miniatura miniatura) {
+        this.miniatura = miniatura;
     }
 }

@@ -146,11 +146,24 @@ public class MiniaturaDal {
                 miniatura.setMin_edicao(rs.getString("min_edicao"));
                 miniatura.setMin_escala(rs.getString("min_escala"));
                 miniatura.setMin_valor(rs.getInt("min_valor"));
+                int min_fab_iden = rs.getInt("min_fab_iden");
+                int min_tmi_iden = rs.getInt("min_tmi_iden");
+                int min_tem_iden = rs.getInt("min_tem_iden");
+                FabricanteDal fdal = new FabricanteDal();
+                TipoMiniaturaDal tipoDal = new TipoMiniaturaDal();
+                TemaDal tdal = new TemaDal();
+                Fabricante objetoFabricante = fdal.getFabricanteById(min_fab_iden);
+                TipoMiniatura objetoTipoMiniatura = tipoDal.getTipoMiniaturaById(min_tmi_iden);
+                Tema objetoTema  = tdal.getTemaById(min_tem_iden);              
+                miniatura.setFabricante(objetoFabricante);
+                miniatura.setTipoDeMiniatura(objetoTipoMiniatura);
+                miniatura.setTema(objetoTema);
+                
             } else {
                 throw new Exception("Nenhuma miniatura com o id ");
             }
         } catch (Exception e) {
-            throw new Exception(e.getMessage() + "dal - ");
+            throw new Exception(e.getMessage());
         }
         return miniatura;
     }

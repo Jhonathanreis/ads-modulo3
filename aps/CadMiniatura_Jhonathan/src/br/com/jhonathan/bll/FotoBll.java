@@ -1,7 +1,7 @@
 /*
  *  -------------------------------------------------------------------------------------------------->
  *  Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
- *  Criado em  : 11/10/2020 23:19:01 
+ *  Criado em  : 12/10/2020 13:17:29 
  *  Instituição: FACULDADE SENAI FATESG
  *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
  *  Disciplina : APS - Arquitetura e Projeto de Software
@@ -14,52 +14,49 @@
  */
 package br.com.jhonathan.bll;
 
-import static br.com.jhonathan.bll.ValidacoesBll.validarNome;
-import br.com.jhonathan.dal.MiniaturaDal;
-import br.com.jhonathan.model.Miniatura;
+import br.com.jhonathan.dal.FotoDal;
+import br.com.jhonathan.model.Foto;
 import java.util.ArrayList;
 
 /**
  *
  * @author JHONATHAN
  */
-public class MiniaturaBll {
-    
-    private MiniaturaDal miniaturaDal;
-    
-    public MiniaturaBll() throws Exception {
-        miniaturaDal = new MiniaturaDal();
+public class FotoBll {
+
+    private FotoDal fotoDal;
+
+    public FotoBll() throws Exception {
+        fotoDal = new FotoDal();
     }
-    
-    public void Adicionar(Miniatura miniatura) throws Exception {
+
+    public void Adicionar(Foto foto) throws Exception {
         try {
-            validarNome(miniatura.getMin_modelo());
-            miniaturaDal.addMiniatura(miniatura);
+            fotoDal.addFoto(foto);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Ja existe uma miniatura com este nome!";
+                mensagem = "Ja existe uma foto com este nome!";
             }
             throw new Exception(mensagem);
         }
     }
-    
-    public void Alterar(Miniatura miniatura) throws Exception {
+
+    public void Alterar(Foto foto) throws Exception {
         try {
-            validarNome(miniatura.getMin_modelo());
-            miniaturaDal.updateMiniatura(miniatura);
+            fotoDal.updateFoto(foto);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Ja existe uma miniatura com este nome";
+                mensagem = "Ja existe uma foto com este nome";
             }
             throw new Exception(mensagem);
         }
     }
-    
-    public void Remover(Miniatura miniatura) throws Exception {
+
+    public void Remover(Foto foto) throws Exception {
         try {
-            miniaturaDal.deleteMiniatura(miniatura.getMin_iden());
+            fotoDal.deleteFoto(foto.getFot_iden());
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("update")) {
@@ -68,21 +65,24 @@ public class MiniaturaBll {
             throw new Exception(mensagem);
         }
     }
-    
-    public ArrayList<Miniatura> getConsulta() throws Exception {
+
+    public ArrayList<Foto> getConsulta() throws Exception {
         try {
-            return miniaturaDal.getAllMiniaturas();
+            return fotoDal.getAllFotos();
         } catch (Exception e) {
             throw new Exception(e);
         }
     }
-    
-    public Miniatura getConsultaPorId(int min_iden) throws Exception {
+
+    public Foto getConsultaPorId(int fot_iden) throws Exception {
         try {
-            return miniaturaDal.getMiniaturaById(min_iden);
-            
+            return fotoDal.getFotoById(fot_iden);
         } catch (Exception e) {
-            throw new Exception(e.getMessage());     
+            throw new Exception(e.getMessage());
         }
+    }
+    
+    public ArrayList<Foto> getFotos(int fot_min_iden) throws Exception {
+        return fotoDal.getFotos(fot_min_iden);
     }
 }
