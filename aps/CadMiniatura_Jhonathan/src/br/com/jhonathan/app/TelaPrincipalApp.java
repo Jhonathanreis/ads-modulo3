@@ -14,7 +14,9 @@
  */
 package br.com.jhonathan.app;
 
+import br.com.jhonathan.bll.FabricanteBll;
 import br.com.jhonathan.bll.TemaBll;
+import br.com.jhonathan.model.Fabricante;
 import br.com.jhonathan.model.Tema;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -26,56 +28,92 @@ import javax.swing.table.DefaultTableModel;
  * @author JHONATHAN
  */
 public class TelaPrincipalApp extends javax.swing.JFrame {
-
+    private FabricanteBll fabricanteBll;
+    private Fabricante fabricante;
     private TemaBll temaBll;
     private Tema tema;
-    
+
     public TelaPrincipalApp() {
         initComponents();
         this.setLocationRelativeTo(null);
-        temaBll = new TemaBll();
-        preencherGridTema();
-    }
-    private void preencherGridTema() {
-        
         try {
-            
-            DefaultTableModel tabelaTema = (DefaultTableModel)jTableTemas.getModel();
+        fabricanteBll = new FabricanteBll();
+        fabricante = new Fabricante();
+        temaBll = new TemaBll();
+        tema = new Tema();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+        
+        preencherGridTema();
+        preencherGridFabricante();
+    }
+
+    private void preencherGridTema() {
+
+        try {
+
+            DefaultTableModel tabelaTema = (DefaultTableModel) jTableTemas.getModel();
             tabelaTema.setRowCount(0);
             
-            //
-            
-//            Object[] linha = new Object[2];
-//            
-//            ArrayList<Tema> temas = new TemaBll().getTemas();
-//                                
-//            for (Tema tema : temas) {
-//                linha[0] = tema.getTem_iden();
-//                linha[1] = tema.getTem_nome();
-//                tabelaTema.addRow(linha);
-//            }
-            
-
-            //
             for (Tema tema : new TemaBll().getConsulta()) {
-                tabelaTema.addRow(new Object[]{tema.getTem_iden(),tema.getTem_nome()});
+                tabelaTema.addRow(new Object[]{tema.getTem_iden(), tema.getTem_nome()});
             }
-            
+
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }
+    
+    private void preencherGridFabricante() {
+        try {
+
+            DefaultTableModel tabelaFabricante = (DefaultTableModel) jTableTemasFabricante.getModel();
+            tabelaFabricante.setRowCount(0);
+
+            //
+            Object[] linha = new Object[2];
+            
+            ArrayList<Fabricante> fabricantes = new FabricanteBll().getConsulta();
+                                
+            for (Fabricante fabricante : fabricantes) {
+                linha[0] = fabricante.getFab_iden();
+                linha[1] = fabricante.getFab_nome();
+                tabelaFabricante.addRow(linha);
+            }
+//            //
+//            for (Tema tema : new TemaBll().getConsulta()) {
+//                tabelaTema.addRow(new Object[]{tema.getTem_iden(), tema.getTem_nome()});
+//            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+
     public void preencherFormulario() {
-        
+
         int id = Integer.parseInt(jTableTemas.getValueAt(jTableTemas.getSelectedRow(), 0).toString());
         String nome = jTableTemas.getValueAt(jTableTemas.getSelectedRow(), 1).toString();
 
         jTextFieldNome.setText(nome);
         jTextFieldId.setText(id + "");
-        
+
     }
-    private void limparCampos(){
+    
+    public void preencherFormularioFabricante() {
+
+        int id = Integer.parseInt(jTableTemasFabricante.getValueAt(jTableTemasFabricante.getSelectedRow(), 0).toString());
+        String nome = jTableTemasFabricante.getValueAt(jTableTemasFabricante.getSelectedRow(), 1).toString();
+
+        jTextFieldNomeFabricante.setText(nome);
+        jTextFieldIdFabricante.setText(id + "");
+
+    }
+
+    private void limparCampos() {
         jTextFieldNome.setText("");
         jTextFieldId.setText("");
     }
@@ -101,6 +139,16 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jButtonAlterar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableTemasFabricante = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldNomeFabricante = new javax.swing.JTextField();
+        jTextFieldIdFabricante = new javax.swing.JTextField();
+        jButtonCadastrarFabricante = new javax.swing.JButton();
+        jButtonAlterarFabricante = new javax.swing.JButton();
+        jButtonExcluirFabricante = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -180,7 +228,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                         .addComponent(jButtonCadastrar)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonAlterar)
@@ -208,24 +256,141 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                             .addComponent(jButtonAlterar)
                             .addComponent(jButtonExcluir))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Temas", jPanel1);
 
+        jTableTemasFabricante.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "NOME"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableTemasFabricante.getTableHeader().setReorderingAllowed(false);
+        jTableTemasFabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTemasFabricanteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableTemasFabricante);
+        if (jTableTemasFabricante.getColumnModel().getColumnCount() > 0) {
+            jTableTemasFabricante.getColumnModel().getColumn(0).setMinWidth(80);
+            jTableTemasFabricante.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTableTemasFabricante.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
+
+        jLabel3.setText("ID:");
+
+        jLabel4.setText("NOME:");
+
+        jTextFieldIdFabricante.setEditable(false);
+        jTextFieldIdFabricante.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jButtonCadastrarFabricante.setText("CADASTRAR");
+        jButtonCadastrarFabricante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarFabricanteActionPerformed(evt);
+            }
+        });
+
+        jButtonAlterarFabricante.setText("ALTERAR");
+        jButtonAlterarFabricante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarFabricanteActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluirFabricante.setText("EXCLUIR");
+        jButtonExcluirFabricante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirFabricanteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldIdFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                        .addComponent(jButtonCadastrarFabricante)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAlterarFabricante)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonExcluirFabricante)
+                        .addGap(111, 111, 111))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextFieldIdFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextFieldNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonCadastrarFabricante)
+                            .addComponent(jButtonAlterarFabricante)
+                            .addComponent(jButtonExcluirFabricante))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1004, Short.MAX_VALUE)
+            .addGap(0, 976, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
+            .addGap(0, 661, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Fabricante", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,14 +398,14 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -249,29 +414,33 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         try {
-            tema = new Tema();
-            tema.setTem_nome(jTextFieldNome.getText());      
-            temaBll.Alterar(tema);
+            tema.setTem_nome(jTextFieldNome.getText());
+            temaBll.Adicionar(tema);
             preencherGridTema();
             limparCampos();
-            
+
+            JOptionPane.showMessageDialog(this, "Tema cadastrado!");
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e);
+
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        
+
         try {
-            tema = new Tema();
             tema.setTem_iden(Integer.parseInt(jTextFieldId.getText()));
             tema.setTem_nome(jTextFieldNome.getText());
             temaBll.Alterar(tema);
             preencherGridTema();
             limparCampos();
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e);
+
+            JOptionPane.showMessageDialog(this, "Tema alterado!");
+
+            } catch (Exception e) {
+                
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
@@ -284,24 +453,78 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableTemasMouseClicked
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        
+
         try {
-            
-            tema = new Tema();
+
             tema.setTem_iden(Integer.parseInt(jTextFieldId.getText()));
             temaBll.Remover(tema);
             preencherGridTema();
             limparCampos();
-            
-            
+
+            JOptionPane.showMessageDialog(this, "Tema excluido!");
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e);
+            
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
+    private void jTableTemasFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTemasFabricanteMouseClicked
+         try {
+            preencherFormularioFabricante();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_jTableTemasFabricanteMouseClicked
+
+    private void jButtonCadastrarFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarFabricanteActionPerformed
+        try {
+            fabricante.setFab_nome(jTextFieldNomeFabricante.getText());
+            fabricanteBll.Adicionar(fabricante);
+            preencherGridFabricante();
+            limparCampos();
+
+            JOptionPane.showMessageDialog(this, "Fabricante cadastrado!");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonCadastrarFabricanteActionPerformed
+
+    private void jButtonAlterarFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarFabricanteActionPerformed
+        try {
+            fabricante.setFab_iden(Integer.parseInt(jTextFieldIdFabricante.getText()));
+            fabricante.setFab_nome(jTextFieldNomeFabricante.getText());
+            fabricanteBll.Alterar(fabricante);
+            preencherGridFabricante();
+            limparCampos();
+
+            JOptionPane.showMessageDialog(this, "Fabricante alterado!");
+
+            } catch (Exception e) {
+                
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonAlterarFabricanteActionPerformed
+
+    private void jButtonExcluirFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirFabricanteActionPerformed
+        try {
+            fabricante.setFab_iden(Integer.parseInt(jTextFieldIdFabricante.getText()));
+            fabricanteBll.Remover(fabricante);
+            preencherGridFabricante();
+
+            JOptionPane.showMessageDialog(this, "Fabricante excluido!");
+
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonExcluirFabricanteActionPerformed
+
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -336,16 +559,26 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonAlterarFabricante;
     private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JButton jButtonCadastrarFabricante;
     private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonExcluirFabricante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableTemas;
+    private javax.swing.JTable jTableTemasFabricante;
     private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldIdFabricante;
     private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldNomeFabricante;
     // End of variables declaration//GEN-END:variables
 }

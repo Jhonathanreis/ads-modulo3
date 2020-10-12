@@ -31,7 +31,7 @@ public class MiniaturaDal {
 
     private Connection conexao;
 
-    public MiniaturaDal() {
+    public MiniaturaDal() throws Exception{
         conexao = Conexao.getConexao();
     }
 

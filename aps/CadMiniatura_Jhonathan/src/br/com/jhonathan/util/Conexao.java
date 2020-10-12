@@ -26,7 +26,7 @@ public class Conexao {
 
     private static Connection conexao = null;
 
-    public static Connection getConexao() {
+    public static Connection getConexao() throws Exception{
         try {
             String driver = "org.postgresql.Driver";
             String url = "jdbc:postgresql://debian:5432/miniaturas";
@@ -35,12 +35,9 @@ public class Conexao {
 
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(Exception e) {
+            throw e;
         }
-
         return conexao;
     }
 }

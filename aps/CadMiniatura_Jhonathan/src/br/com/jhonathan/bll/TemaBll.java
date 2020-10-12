@@ -16,6 +16,7 @@ package br.com.jhonathan.bll;
 
 import br.com.jhonathan.dal.TemaDal;
 import br.com.jhonathan.model.Tema;
+import static br.com.jhonathan.bll.ValidacoesBll.*;
 import java.util.ArrayList;
 
 /**
@@ -27,27 +28,58 @@ public class TemaBll {
     
     private TemaDal temaDal;
     
-    public TemaBll() {
+    public TemaBll() throws Exception{
         temaDal = new TemaDal();
     }
     
     public void Adicionar(Tema tema) throws Exception {
-        temaDal.addTema(tema);
+        try {
+            validarNome(tema.getTem_nome());
+            temaDal.addTema(tema);
+        } catch (Exception e) {
+            String mensagem = e.getMessage();
+            if (mensagem.contains("duplicate")) {
+                mensagem = "Ja existe um tema com este nome!";
+            }
+            throw new Exception(mensagem);
+        }      
     }
     
     public void Alterar(Tema tema) throws Exception {
-        temaDal.updateTema(tema);
+        try {
+            temaDal.updateTema(tema);
+            validarNome(tema.getTem_nome());
+        } catch (Exception e) {
+            String mensagem = e.getMessage();
+            if (mensagem.contains("duplicate")) {
+                mensagem = "Ja existe um tema com este nome!";
+            }
+            throw new Exception(mensagem);
+        }      
     }
     
     public void Remover(Tema tema) throws Exception {
-        temaDal.deleteTema(tema.getTem_iden());
+        try {
+            temaDal.deleteTema(tema.getTem_iden());
+
+        } catch (Exception e) {       
+            throw new Exception(e.getMessage());
+        }      
     }
     
-    public ArrayList<Tema> getConsulta() {
-        return temaDal.getAllTemas();
+    public ArrayList<Tema> getConsulta() throws Exception {
+        try {
+            return temaDal.getAllTemas();
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
     
-    public Tema getConsultaPorId(int tem_iden) throws Exception {
-        return temaDal.getTemaById(tem_iden);
+    public Tema getConsultaPorId(int tem_iden) throws Exception{
+        try {
+            return temaDal.getTemaById(tem_iden);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
