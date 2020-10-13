@@ -50,9 +50,10 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
     private ArrayList<Foto> fotos = null;
     private int posicao = 0;
     
+
     public TelaPrincipalApp() {
         initComponents();
-        this.setLocationRelativeTo(null);
+
         try {
             miniatura = new Miniatura();
             miniaturaBll = new MiniaturaBll();
@@ -63,18 +64,19 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             temaBll = new TemaBll();
             tema = new Tema();
             fotoBll = new FotoBll();
-            
-        preencherComboboxFabricante();
-        PreencherComboboxTema();
-        preencherComboboxTipo();
+
+            preencherComboboxFabricante();
+            PreencherComboboxTema();
+            preencherComboboxTipo();
+
+            preencherGridMiniatura();
+            preencherGridTema();
+            preencherGridFabricante();
+            preencherGridTipoMiniatura();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
-
-        preencherGridMiniatura();
-        preencherGridTema();
-        preencherGridFabricante();
-        preencherGridTipoMiniatura();
+        this.setLocationRelativeTo(null);
     }
 
     private void preencherGridTema() {
@@ -177,16 +179,25 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
     private void buscarFotos(int idMiniatura) {
         try {
-            fotos = fotoBll.getFotos(idMiniatura);
+            fotos = fotoBll.getFotos(idMiniatura);          
             posicao = 0;
             exibirFoto(posicao);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
+    
+    public void exibirDescricao(int posicao) throws Exception {
+        if (fotos.size() > 0) {
+            
+            jTextFieldDescricao.setText(fotos.get(posicao).getFot_descricao());            
+        } else {
+            jTextFieldDescricao.setText(null);
+        }            
+    }
 
     public void exibirFoto(int posicao) throws Exception {
-
+        
         if (fotos.size() > 0) {
             File f = new File(fotos.get(posicao).getFot_caminho());
 
@@ -259,10 +270,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jTextFieldValorMiniatura.setText(valor);
 
         buscarFotos(id);
-        preencherComboboxFabricante();
-        PreencherComboboxTema();
-        preencherComboboxTipo();
-
+        exibirDescricao(posicao); 
     }
 
     private void preencherComboboxFabricante() throws Exception {
@@ -301,6 +309,18 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
     private void limparCampos() {
         jTextFieldNome.setText("");
         jTextFieldId.setText("");
+        jTextFieldAnoMiniatura.setText("");
+        jTextFieldEdicaoMiniatura.setText("");
+        jTextFieldEscalaMiniatura.setText("");
+        jTextFieldModeloMiniatura.setText("");
+        jTextFieldNome.setText("");
+        jTextFieldNomeFabricante.setText("");
+        jTextFieldObservacoesMiniatura.setText("");
+        jTextFieldTipoMiniatura.setText("");
+        jTextFieldValorMiniatura.setText("");
+        jComboBoxFabricantes.removeAll();
+        jComboBoxTemas.removeAll();
+        jComboBoxTipoMiniatura.removeAll();
     }
 
     /**
@@ -343,6 +363,10 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jTextFieldDescricao = new javax.swing.JTextField();
         jButtonProximaFoto = new javax.swing.JButton();
         jButtonFotoAnterior = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTemas = new javax.swing.JTable();
@@ -377,6 +401,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jButtonExcluirTipoMiniatura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Projeto Miniatura");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jTableMiniatura.setModel(new javax.swing.table.DefaultTableModel(
@@ -446,7 +471,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
         jLabel13.setText("VALOR:");
 
-        jButtonAdicionarFoto.setText("ADICIONAR FOTO");
+        jButtonAdicionarFoto.setText("ADICIONAR MINIATURA");
         jButtonAdicionarFoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdicionarFotoActionPerformed(evt);
@@ -454,6 +479,8 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         });
 
         jLabel17.setText("MINIATURA");
+
+        jTextFieldDescricao.setEditable(false);
 
         jButtonProximaFoto.setText(">>");
         jButtonProximaFoto.addActionListener(new java.awt.event.ActionListener() {
@@ -469,72 +496,93 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setText("TEMAS:");
+
+        jLabel15.setText("TIPO DE MINIATURAS:");
+
+        jLabel16.setText("FABRICANTES:");
+
+        jButton1.setText("LIMPAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(66, 66, 66)
+                                    .addComponent(jTextFieldValorMiniatura))
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel9))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextFieldObservacoesMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldEdicaoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldModeloMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldIdMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(60, 60, 60)
+                                    .addComponent(jTextFieldEscalaMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel7Layout.createSequentialGroup()
-                                            .addComponent(jLabel13)
-                                            .addGap(66, 66, 66)
-                                            .addComponent(jTextFieldValorMiniatura))
-                                        .addGroup(jPanel7Layout.createSequentialGroup()
-                                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel10)
-                                                .addComponent(jLabel9))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTextFieldObservacoesMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextFieldEdicaoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextFieldModeloMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextFieldIdMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(jPanel7Layout.createSequentialGroup()
-                                            .addComponent(jLabel12)
-                                            .addGap(60, 60, 60)
-                                            .addComponent(jTextFieldEscalaMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel8))
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonCadastrarMiniatura)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonAlterarMiniatura))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                        .addGap(54, 54, 54)
-                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jComboBoxTemas, 0, 166, Short.MAX_VALUE)
-                                            .addComponent(jComboBoxTipoMiniatura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jComboBoxFabricantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jButtonCadastrarMiniatura)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonExcluirMiniatura))
+                                .addComponent(jButtonAlterarMiniatura)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonExcluirMiniatura)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(81, 81, 81)
-                                .addComponent(jTextFieldAnoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel7))
-                        .addGap(78, 96, Short.MAX_VALUE)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxTemas, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxTipoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxFabricantes, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(81, 81, 81)
+                        .addComponent(jTextFieldAnoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jButtonFotoAnterior)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(jLabel17))
-                            .addComponent(jButtonAdicionarFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(jLabelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(jTextFieldDescricao))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonProximaFoto)
-                        .addGap(120, 120, 120)))
-                .addContainerGap())
+                            .addComponent(jLabelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonProximaFoto))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jButtonAdicionarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(103, 103, 103))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,20 +594,23 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                             .addComponent(jTextFieldIdMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldModeloMiniatura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(jComboBoxFabricantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldModeloMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxFabricantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16))
+                            .addComponent(jLabel8))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jTextFieldObservacoesMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxTipoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxTipoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jTextFieldEdicaoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxTemas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBoxTemas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,7 +621,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                                 .addGap(78, 78, 78)
                                 .addComponent(jButtonFotoAnterior))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(80, 80, 80)
+                                .addGap(76, 76, 76)
                                 .addComponent(jButtonProximaFoto)))))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -592,7 +643,8 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                     .addComponent(jButtonCadastrarMiniatura)
                     .addComponent(jButtonAlterarMiniatura)
                     .addComponent(jButtonExcluirMiniatura)
-                    .addComponent(jButtonAdicionarFoto))
+                    .addComponent(jButtonAdicionarFoto)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
@@ -602,7 +654,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1133, Short.MAX_VALUE)
+            .addGap(0, 1149, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
@@ -703,7 +755,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonExcluir))
                             .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(111, 438, Short.MAX_VALUE))))
+                        .addGap(111, 454, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -723,7 +775,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                         .addComponent(jButtonAlterar)
                         .addComponent(jButtonExcluir)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -805,7 +857,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonExcluirFabricante))
                     .addComponent(jTextFieldIdFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel3Layout.setVerticalGroup(
@@ -830,7 +882,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1133, Short.MAX_VALUE)
+            .addGap(0, 1149, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -926,7 +978,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonExcluirTipoMiniatura))
                     .addComponent(jTextFieldIdTipoMiniatura, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel5Layout.setVerticalGroup(
@@ -951,7 +1003,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1133, Short.MAX_VALUE)
+            .addGap(0, 1149, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
@@ -995,6 +1047,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             fabricante.setFab_iden(Integer.parseInt(jTextFieldIdFabricante.getText()));
             fabricanteBll.Remover(fabricante);
             preencherGridFabricante();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Fabricante excluido!");
 
@@ -1026,6 +1079,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             fabricanteBll.Adicionar(fabricante);
             preencherGridFabricante();
             limparCampos();
+            preencherComboboxFabricante();
 
             JOptionPane.showMessageDialog(this, "Fabricante cadastrado!");
 
@@ -1083,6 +1137,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             temaBll.Adicionar(tema);
             preencherGridTema();
             limparCampos();
+            PreencherComboboxTema();
 
             JOptionPane.showMessageDialog(this, "Tema cadastrado!");
 
@@ -1113,6 +1168,8 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             tipoMiniatura.setTmi_tipo(jTextFieldTipoMiniatura.getText());
             TipoMiniaturaBll.Adicionar(tipoMiniatura);
             preencherGridTipoMiniatura();
+            preencherComboboxTipo();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Tipo de Miniatura cadastrado!");
 
@@ -1128,6 +1185,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             tipoMiniatura.setTmi_tipo(jTextFieldTipoMiniatura.getText());
             TipoMiniaturaBll.Alterar(tipoMiniatura);
             preencherGridTipoMiniatura();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Tipo de Miniatura alterado!");
 
@@ -1143,6 +1201,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             tipoMiniatura.setTmi_iden(Integer.parseInt(jTextFieldIdTipoMiniatura.getText()));
             TipoMiniaturaBll.Remover(tipoMiniatura);
             preencherGridTipoMiniatura();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Tipo de Miniatura excluido!");
 
@@ -1182,6 +1241,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             miniatura.setTema(tema);
             miniaturaBll.Adicionar(miniatura);
             preencherGridMiniatura();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Miniatura cadastrada!");
 
@@ -1201,6 +1261,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             miniatura.setMin_valor(Integer.parseInt(jTextFieldValorMiniatura.getText()));
             miniaturaBll.Adicionar(miniatura);
             preencherGridMiniatura();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Miniatura alterada!");
 
@@ -1217,6 +1278,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             miniaturaBll.Remover(miniatura);
             preencherFormularioMiniatura();
             preencherGridMiniatura();
+            limparCampos();
 
             JOptionPane.showMessageDialog(this, "Miniatura excluida!");
 
@@ -1230,7 +1292,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
         try {
 
             if (jTableMiniatura.getSelectedRow() == -1) {
-                throw new Exception("SELECIONE UMA FOTO");
+                throw new Exception("SELECIONE UMA MINIATURA");
             }
 
             FotoApp tela = new FotoApp();
@@ -1247,15 +1309,15 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
     private void jButtonFotoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFotoAnteriorActionPerformed
         try {
-            if(fotos.size() == 0){
+            if (fotos.size() == 0) {
                 return;
             }
-            if(posicao == 0){
+            if (posicao == 0) {
                 return;
             }
             posicao--;
             exibirFoto(posicao);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
@@ -1263,19 +1325,23 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
 
     private void jButtonProximaFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximaFotoActionPerformed
         try {
-            if(fotos.size() == 0){
+            if (fotos.size() == 0) {
                 return;
             }
-            if(posicao == (fotos.size() -1)){
+            if (posicao == (fotos.size() - 1)) {
                 return;
             }
             posicao++;
             exibirFoto(posicao);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }//GEN-LAST:event_jButtonProximaFotoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1313,6 +1379,7 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdicionarFoto;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonAlterarFabricante;
@@ -1336,6 +1403,9 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

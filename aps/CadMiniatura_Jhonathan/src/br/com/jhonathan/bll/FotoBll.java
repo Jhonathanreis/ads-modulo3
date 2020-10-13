@@ -36,7 +36,7 @@ public class FotoBll {
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Ja existe uma foto com este nome!";
+                mensagem = "Ja existe uma miniatura com este nome!";
             }
             throw new Exception(mensagem);
         }
@@ -48,7 +48,7 @@ public class FotoBll {
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Ja existe uma foto com este nome";
+                mensagem = "Ja existe uma miniatura com este nome";
             }
             throw new Exception(mensagem);
         }
