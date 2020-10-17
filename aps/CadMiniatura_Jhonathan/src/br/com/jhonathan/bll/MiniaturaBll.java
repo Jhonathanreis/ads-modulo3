@@ -34,10 +34,6 @@ public class MiniaturaBll {
     public void Adicionar(Miniatura miniatura) throws Exception {
         try {
             validarNome(miniatura.getMin_modelo());
-            validarNome(miniatura.getMin_escala());
-            validarNome(miniatura.getMin_observacoes());
-            validarNome(miniatura.getMin_edicao());
-            validarNome(miniatura.getMin_valor() + "");
             miniaturaDal.addMiniatura(miniatura);
         } catch (Exception e) {
             String mensagem = e.getMessage();
