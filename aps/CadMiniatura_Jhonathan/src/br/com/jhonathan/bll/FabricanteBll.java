@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author JHONATHAN
+ * @author JHONATHANN
  */
 public class FabricanteBll {
 
