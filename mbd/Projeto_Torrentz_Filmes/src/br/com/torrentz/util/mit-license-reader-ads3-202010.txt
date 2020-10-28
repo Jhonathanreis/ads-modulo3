@@ -1,0 +1,18 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} -------------------------------------------------------------------------------------------------->
+${licensePrefix} Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
+${licensePrefix} Criado em  : ${date?date?string("dd/MM/yyyy")} ${time?time?string("HH:mm:ss")} 
+${licensePrefix} Instituição: FACULDADE SENAI FATESG
+${licensePrefix} Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
+${licensePrefix} Disciplina : mbd - Modelagem de banco de dados
+${licensePrefix} Aluno      : Jhonathan dos reis
+${licensePrefix} Projeto    : PROJETO CAMADAS
+${licensePrefix} Exercício  : Cadastro de miniaturas
+${licensePrefix} ---------------------------------------------------------------------------------------------------
+${licensePrefix} Propósito do arquivo.
+${licensePrefix} ---------------------------------------------------------------------------------------------------| 
+<#if licenseLast??>
+${licenseLast}
+</#if>
