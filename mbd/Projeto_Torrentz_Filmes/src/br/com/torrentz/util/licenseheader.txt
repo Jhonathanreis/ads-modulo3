@@ -2,17 +2,18 @@
 ${licenseFirst}
 </#if>
 ${licensePrefix} -------------------------------------------------------------------------------------------------->
-${licensePrefix} Licen�a    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
+${licensePrefix} Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
 ${licensePrefix} Criado em  : ${date?date?string("dd/MM/yyyy")} ${time?time?string("HH:mm:ss")} 
-${licensePrefix} Institui��o: FACULDADE SENAI FATESG
-${licensePrefix} Curso      : An�lise e Desenvolvimento de sistemas - M�dulo 3 - 2020/2
+${licensePrefix} Instituição: FACULDADE SENAI FATESG
+${licensePrefix} Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
 ${licensePrefix} Disciplina : mbd - Modelagem de banco de dados
 ${licensePrefix} Aluno      : Jhonathan dos reis
 ${licensePrefix} Projeto    : PROJETO CAMADAS
-${licensePrefix} Exerc�cio  : Cadastro de miniaturas
+${licensePrefix} Exercício  : Cadastro de miniaturas
 ${licensePrefix} ---------------------------------------------------------------------------------------------------
-${licensePrefix} Prop�sito do arquivo.
+${licensePrefix} Propósito do arquivo (Pregu;á náo deicha preencher).
 ${licensePrefix} ---------------------------------------------------------------------------------------------------| 
 <#if licenseLast??>
 ${licenseLast}
 </#if>
+
