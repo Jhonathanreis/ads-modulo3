@@ -35,6 +35,7 @@ public class Contratos {
     public Contratos() {
 
     }
+    
     //---CONSTRUTOR PASSANDO PARAMETRO---//
     public Contratos(int con_iden, char con_status, Date con_inicio, Date con_fim) {
         this.con_iden = con_iden;

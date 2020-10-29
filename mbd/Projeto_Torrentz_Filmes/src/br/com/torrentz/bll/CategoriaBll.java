@@ -1,7 +1,7 @@
 /*
  *  -------------------------------------------------------------------------------------------------->
  *  Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
- *  Criado em  : 29/10/2020 00:36:03 
+ *  Criado em  : 29/10/2020 13:50:44 
  *  Instituição: FACULDADE SENAI FATESG
  *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
  *  Disciplina : mbd - Modelagem de banco de dados
@@ -14,18 +14,14 @@
  */
 
 
-package br.com.torrentz.dal;
-
-import javax.swing.JOptionPane;
+package br.com.torrentz.bll;
 
 /**
  *
  * @author JHONATHAN
  */
-public class NewClass {
-
-    public static void main(String[] args) {
-        JOptionPane.showMessageDialog(null, "Erro ao inserir uma categoria", "Mensagem", JOptionPane.ERROR_MESSAGE);
-    }
+public class CategoriaBll {
+    
+    
 
 }
