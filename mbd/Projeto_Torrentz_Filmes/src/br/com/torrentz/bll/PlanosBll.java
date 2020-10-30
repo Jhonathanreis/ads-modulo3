@@ -1,7 +1,7 @@
 /*
  *  -------------------------------------------------------------------------------------------------->
  *  Licença    : MIT - Copyright 2019 Jhonathan dos reis (jhonlinux) <jhonathan.rosa@maximatech.com.br>
- *  Criado em  : 29/10/2020 13:50:44 
+ *  Criado em  : 29/10/2020 23:39:20 
  *  Instituição: FACULDADE SENAI FATESG
  *  Curso      : Análise e Desenvolvimento de sistemas - Módulo 3 - 2020/2
  *  Disciplina : mbd - Modelagem de banco de dados
@@ -12,56 +12,59 @@
  *  Propósito do arquivo (Pregu;á náo deicha preencher).
  *  ---------------------------------------------------------------------------------------------------| 
  */
+
+
 package br.com.torrentz.bll;
 
 import static br.com.torrentz.bll.ValidacoesBll.*;
-import br.com.torrentz.dal.CategoriasDal;
-import br.com.torrentz.model.Categorias;
+import br.com.torrentz.dal.PlanosDal;
+import br.com.torrentz.model.Planos;
 import java.util.ArrayList;
 
 /**
  *
  * @author JHONATHAN
  */
-public class CategoriaBll {
+public class PlanosBll {
 
-    private CategoriasDal categoriadal;
-
-    public CategoriaBll() throws Exception {
-        categoriadal = new CategoriasDal();
+    private PlanosDal planosdal;
+    
+    public PlanosBll() throws Exception {
+        planosdal = new PlanosDal();
     }
-
-    public void Adicionar(Categorias categorias) throws Exception {
-
+    
+    public void Adicionar(Planos planos) throws Exception {
+        
         try {
-            validarNome(categorias.getCat_nome());           
-            categoriadal.addCategoria(categorias);
+            validarNome(planos.getPla_nome());           
+            planosdal.addPlanos(planos);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Já existe uma categoria com este nome!";
+                mensagem = "Já existe um plano com este nome!";
             }
             throw new Exception(mensagem);
         }
     }
-
-    public void Alterar(Categorias categorias) throws Exception {
-
+    
+    public void Alterar(Planos planos) throws Exception {
+        
         try {
-            validarNome(categorias.getCat_nome());
-            categoriadal.updateCategoria(categorias);
+            validarNome(planos.getPla_nome());
+            planosdal.updateCategoria(planos);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("duplicate")) {
-                mensagem = "Já existe uma categoria com este nome!";
+                mensagem = "Já existe um plano com este nome!";
             }
             throw new Exception(mensagem);
         }
     }
-
-    public void Remover(Categorias categorias) throws Exception {
+    
+    public void Remover(Planos planos) throws Exception {
+        
         try {
-            categoriadal.deleteCategoria(categorias.getCat_iden());
+            planosdal.deletePlanos(planos.getPla_iden());
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("update")) {
@@ -70,11 +73,12 @@ public class CategoriaBll {
             throw new Exception(mensagem);
         }
     }
-
-    public ArrayList<Categorias> getConsulta() throws Exception {
+    
+    public ArrayList<Planos> getConsulta() throws Exception {
+        
         try {
             
-            return categoriadal.getAllCategorias();
+            return planosdal.getAllPlanos();
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("empty")) {
@@ -83,14 +87,14 @@ public class CategoriaBll {
             throw new Exception(mensagem);
         }
     }
-
-    public Categorias getConsultaPorId(int cat_iden) throws Exception {
-        try {
-            return categoriadal.getCategoriasById(cat_iden);
+    
+    public Planos getConsultaPorId(int pla_iden) throws Exception {
+         try {
+            return planosdal.getPlanosById(pla_iden);
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("empty")) {
-                mensagem = "Não existe nenhuma categoria cadastrada com este id!";
+                mensagem = "Não existe nenhum plano cadastrado com este id!";
             }
             throw new Exception(mensagem);
         }

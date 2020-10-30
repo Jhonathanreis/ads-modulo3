@@ -16,27 +16,25 @@ package br.com.torrentz.dal;
 
 import br.com.torrentz.model.Categorias;
 import java.sql.Connection;
-import java.sql.SQLException;
 import br.com.torrentz.util.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author JHONATHAN
  */
-public class CategoriaDal {
+public class CategoriasDal {
 
     private Connection conexao;
 
-    public CategoriaDal() throws Exception {
+    public CategoriasDal() throws Exception {
         conexao = Conexao.getConexao();
     }
 
-    public void addCategoria(Categorias categoria) throws SQLException {
+    public void addCategoria(Categorias categoria) throws Exception {
 
         String sql = "INSERT INTO categorias(cat_nome) VALUES(?)";
 
@@ -44,12 +42,12 @@ public class CategoriaDal {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, categoria.getCat_nome());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir uma categoria", "Menssagem", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    public void deleteCategoria(int cat_iden) throws SQLException {
+    public void deleteCategoria(int cat_iden) throws Exception {
 
         String sql = "DELETE FROM categorias WHERE cat_iden =?";
 
@@ -57,12 +55,12 @@ public class CategoriaDal {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, cat_iden);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar a categoria", "Menssagem", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    public void updateCategoria(Categorias categoria) throws SQLException {
+    public void updateCategoria(Categorias categoria) throws Exception {
         
         String sql = "UPDATE categorias SET cat_nome=? WHERE cat_iden=?";
         
@@ -72,11 +70,12 @@ public class CategoriaDal {
             preparedStatement.setInt(2, categoria.getCat_iden());
             preparedStatement.executeUpdate();           
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar a categoria", "Menssagem", JOptionPane.ERROR_MESSAGE);
+            throw e;
         }     
     }
     
-    public ArrayList<Categorias> getAllCategorias() throws SQLException {
+    public ArrayList<Categorias> getAllCategorias() throws Exception {
+        
         ArrayList<Categorias> lista = new ArrayList<Categorias>();
         String sql = "SELECT * FROM categorias";      
         try {
@@ -88,7 +87,7 @@ public class CategoriaDal {
                 categorias.setCat_iden(rs.getInt("cat_iden"));
                 lista.add(categorias);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw e;
         }
         return lista;
@@ -106,10 +105,10 @@ public class CategoriaDal {
                 categoria.setCat_iden(rs.getInt("cat_iden"));
                 categoria.setCat_nome(rs.getString("cat_nome"));
             } else {
-                throw new Exception("Nenhuma categoria com o id " + cat_iden);
+                throw new Exception("Nenhuma categoria com o id ");
             }
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw e;
         }
         return categoria;
     }   
