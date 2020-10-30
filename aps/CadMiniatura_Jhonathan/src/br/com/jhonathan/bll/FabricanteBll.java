@@ -64,7 +64,7 @@ public class FabricanteBll {
         } catch (Exception e) {
             String mensagem = e.getMessage();
             if (mensagem.contains("update")) {
-                mensagem = "Existe uma miniatura com está fabricante cadastrada!";
+                mensagem = "Existe umupdatea miniatura com está fabricante cadastrada!";
             }
             throw new Exception(mensagem);
         }

@@ -102,7 +102,6 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
             DefaultTableModel tabelaFabricante = (DefaultTableModel) jTableTemasFabricante.getModel();
             tabelaFabricante.setRowCount(0);
 
-            //
             Object[] linha = new Object[2];
 
             ArrayList<Fabricante> fabricantes = new FabricanteBll().getConsulta();
@@ -112,10 +111,6 @@ public class TelaPrincipalApp extends javax.swing.JFrame {
                 linha[1] = fabricante.getFab_nome();
                 tabelaFabricante.addRow(linha);
             }
-//            //
-//            for (Tema tema : new TemaBll().getConsulta()) {
-//                tabelaTema.addRow(new Object[]{tema.getTem_iden(), tema.getTem_nome()});
-//            }
 
         } catch (Exception e) {
 
