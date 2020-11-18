@@ -18,7 +18,7 @@ Repositório destinado as matérias do semestre
 
 ## 📚 Contexto do Problema
 
-- SEMESTRE LETIVO: 2020/2
+- SEMESTRE LETIVO: 2020/3
 
 ---
 
