@@ -6,7 +6,7 @@ REPOSITÓRIO DE MATÉRIAS
     FACULDADE SENAI FATESG
     </h2>
 <h4 align="center">
-Sistema de gerenciamento de locação de veículos
+Repositório destinado as matérias do semestre
 </h4>
 
 <p align="center">
