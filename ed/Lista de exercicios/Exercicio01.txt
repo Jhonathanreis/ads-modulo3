@@ -1,0 +1,73 @@
+/*
+Fazer um programa que leia e armazene as notas de 20 alunos em um vetor notas (notas no intervalo
+de 0 a 100). Em seguida, calcule e escreva a quantidade de notas em cada um dos intervalos:
+00 – 09 : __
+10 – 19 : __
+:
+.
+90 – 99 : __
+100 : __
+*/
+package exercicio01;
+import java.util.Scanner;
+ // @author Jhonathan dos reis
+
+public class NotasAlunos {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        double notas[] = new double[5];
+        int a=0,b=0,c=0,d=0,e=0,f=0,g=0,h=0,j=0,k=0,l=0;
+        
+        for(int i = 0; i < notas.length; i ++){
+            System.out.print("Digite a nota do "+(i+1)+"º aluno:");
+            notas[i]= input.nextDouble();
+            if(notas[i] >= 0 && notas[i] <= 9 ){
+                a++;
+            }
+            else if(notas[i] >= 10 && notas[i] <= 19 ){
+                b++;
+            }
+            else if(notas[i] >= 20 && notas[i] <= 29 ){
+                c++;
+            }
+            else if(notas[i] >= 30 && notas[i] <= 39 ){
+                d++;
+            }
+            else if(notas[i] >= 40 && notas[i] <= 49 ){
+                e++;
+            }
+            else if(notas[i] >= 50 && notas[i] <= 59 ){
+                f++;
+            }
+            else if(notas[i] >= 60 && notas[i] <= 69 ){
+                g++;
+            }
+            else if(notas[i] >= 70 && notas[i] <= 79 ){
+                h++;
+            }
+            else if(notas[i] >= 80 && notas[i] <= 89 ){
+                j++;
+            }
+            else if(notas[i] >= 90 && notas[i] <= 99 ){
+                k++;
+            }
+            else{
+                l++;
+            }         
+         }  
+        System.out.println("\n\n\n-------------------------------");
+        System.out.println("Notas de 00 – 09 : "+a+"notas");
+        System.out.println("Notas de 10 – 19 : "+b+"notas");
+        System.out.println("Notas de 20 – 29 : "+c+"notas");
+        System.out.println("Notas de 30 – 39 : "+d+"notas");
+        System.out.println("Notas de 40 – 49 : "+e+"notas");
+        System.out.println("Notas de 50 – 59 : "+f+"notas");
+        System.out.println("Notas de 60 – 69 : "+g+"notas");
+        System.out.println("Notas de 70 – 79 : "+h+"notas");
+        System.out.println("Notas de 80 – 89 : "+j+"notas");
+        System.out.println("Notas de 90 – 99 : "+k+"notas");
+        System.out.println("Notas 100        :"+l+"notas");
+        System.out.println("-------------------------------");
+        
+      }  
+}

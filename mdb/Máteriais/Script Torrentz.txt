@@ -1,0 +1,58 @@
+CREATE TABLE cupons (
+  	cup_iden SERIAL PRIMARY KEY,
+	cup_porcentagem NUMERIC(7,2) constraint porcentagem_invalida check (cup_porcentagem > 0) check (cup_porcentagem < 61),
+	cup_data_geracao DATE
+);
+
+CREATE TABLE categorias(
+	cat_iden SERIAL PRIMARY KEY,
+	cat_nome VARCHAR(80) constraint nome_repetido unique check (cat_nome is not null)
+);
+
+
+CREATE TABLE planos(
+	pla_iden SERIAL PRIMARY KEY,
+	pla_acesso_simultaneo INTEGER check (pla_acesso_simultaneo > 0),
+	pla_nome VARCHAR(80) constraint plano_repetido unique check (pla_nome is not null),
+	pla_preco NUMERIC(7,2) constraint preco_invalido not null check (pla_preco > 0)
+);
+
+CREATE TABLE filmes (
+ 	fil_iden SERIAL PRIMARY KEY,
+	fil_sinopse VARCHAR(500) unique not null,
+	fil_titulo VARCHAR(50) unique not null,
+	fil_ano INTEGER constraint ano_invalido check (fil_ano > 1895) not null,
+	fil_cat_iden INTEGER,
+	FOREIGN KEY (fil_cat_iden) REFERENCES categorias (cat_iden)
+);
+
+CREATE TABLE visualizados(
+	vis_iden SERIAL PRIMARY KEY,
+	vis_completo BOOLEAN,
+	vis_data_visualizacao VARCHAR(15) NOT null,
+	vis_usu_iden INTEGER,
+	vis_fil_iden INTEGER,
+	FOREIGN KEY (vis_usu_iden) REFERENCES usuarios (usu_iden),
+	FOREIGN KEY (vis_fil_iden) REFERENCES filmes (fil_iden)
+);
+
+CREATE TABLE usuarios(
+	usu_iden SERIAL PRIMARY KEY,
+	usu_nome VARCHAR(80) constraint usuario_repetido unique,
+	usu_cpf VARCHAR(15) constraint cpf_repetido unique not null,
+	usu_email VARCHAR(80) constraint email_repetido unique not null,
+	usu_senha VARCHAR(30) constraint senha_vazia not null,
+	usu_cup_iden INTEGER,
+	FOREIGN KEY (usu_cup_iden) REFERENCES cupons (cup_iden)
+);	
+
+CREATE TABLE contratos(
+	con_iden SERIAL PRIMARY KEY,
+	con_inicio VARCHAR(15) NOT null,
+	con_fim VARCHAR(15) NOT null,
+	con_usu_iden INTEGER,
+	con_pla_iden INTEGER,
+         con_status VARCHAR(10) NOT null,
+	FOREIGN KEY (con_usu_iden) REFERENCES usuarios (usu_iden),
+	FOREIGN KEY (con_pla_iden) REFERENCES planos (pla_iden)
+);	

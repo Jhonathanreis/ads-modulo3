@@ -1,0 +1,77 @@
+CREATE TABLE enderecos (
+	end_iden SERIAL PRIMARY KEY NOT NULL,
+	end_rua VARCHAR (100),
+	end_numero INTEGER
+);
+
+CREATE TABLE pessoas (
+	pes_iden SERIAL PRIMARY KEY,
+	pes_nome VARCHAR(100),
+	pes_end_iden INTEGER,
+	FOREIGN KEY (pes_end_iden) REFERENCES enderecos (end_iden)
+);
+
+CREATE TABLE telefones (
+	tel_iden SERIAL PRIMARY KEY,
+	tel_valor VARCHAR(80),
+	tel_pes_iden INTEGER,
+	FOREIGN KEY (tel_pes_iden) REFERENCES pessoas (pes_iden)
+);
+
+CREATE TABLE pessoas_juridicas (
+	pju_cnpj SERIAL PRIMARY KEY,
+	pju_inscricao_estadual VARCHAR(100),
+	pju_nome_fantasia VARCHAR(100),
+	pju_pes_iden INTEGER,
+	FOREIGN KEY (pju_pes_iden) REFERENCES pessoas (pes_iden)
+);
+
+CREATE TABLE pessoas_fisicas (
+	pfi_cpf SERIAL PRIMARY KEY,
+	pfi_rg INTEGER,
+	pfi_pes_iden INTEGER,
+	FOREIGN KEY (pfi_pes_iden) REFERENCES pessoas (pes_iden)
+);
+
+CREATE TABLE tipos_eventos (
+	tev_iden SERIAL PRIMARY KEY,
+	tev_nome VARCHAR(100)
+);
+
+CREATE TABLE eventos (
+	eve_iden SERIAL PRIMARY KEY,
+	eve_data_hora TIMESTAMP,
+	eve_obs VARCHAR(100),
+	eve_pes_iden INTEGER,
+	eve_end_iden INTEGER,
+	eve_tev_iden INTEGER,
+	FOREIGN KEY (eve_pes_iden) REFERENCES pessoas (pes_iden),
+	FOREIGN KEY (eve_end_iden) REFERENCES enderecos (end_iden),
+	FOREIGN KEY (eve_tev_iden) REFERENCES tipos_eventos (tev_iden)
+);
+
+CREATE TABLE fotos (
+	fot_iden SERIAL PRIMARY KEY,
+	fot_escolhida BOOLEAN,
+	fot_retoques VARCHAR(100),
+	fot_eve_iden INTEGER,
+	FOREIGN KEY (fot_eve_iden) REFERENCES eventos (eve_iden)
+);
+
+CREATE TABLE planos (
+	pla_iden SERIAL PRIMARY KEY,
+	pla_quantidade INTEGER,
+	pla_nome VARCHAR(100),
+	pla_endereco NUMERIC(3)
+);
+
+CREATE TABLE contratos (
+	con_iden SERIAL PRIMARY KEY,
+	con_dt_inicio DATE,
+	con_dt_fim DATE,
+	con_status VARCHAR(100),
+	con_pla_iden INTEGER,
+	con_eve_iden INTEGER,
+	FOREIGN KEY (con_pla_iden) REFERENCES planos (pla_iden),
+	FOREIGN KEY (con_eve_iden) REFERENCES eventos (eve_iden)
+);

@@ -1,0 +1,62 @@
+package exercicio02;
+
+/**
+ *
+ * @author Jhonathan dos reis
+ */
+
+public class Primos {
+
+    public static void main(String[] args) {
+        int vetor[] = new int[51];
+        int divisores = 0;
+        int primos = 0;
+         int pos = 0;
+        int primo[];
+
+        for (int i = 1; i < vetor.length; i++) {
+            vetor[i] = i;
+            if(Primo(i)){
+                primos++; // ferifico o tanto de numeros primos
+            }
+           
+        }
+        primo = new int [primos]; // defino o tamanho do vetor de primos
+        System.out.println("");
+
+        for (int i = 1; i < vetor.length; i++) {
+          
+            if (Primo(vetor[i])) {
+             primo[pos] = vetor[i];
+             pos++;
+            }
+           
+        }   
+        System.out.print("números: ");
+        imprimeVetor(vetor);
+        System.out.print("números primos: ");
+        imprimeVetor(primo);
+        
+    }
+
+    private static boolean Primo(int numero) {
+        if (numero == 1) {
+            return false;
+        }
+        for (int j = 2; j < numero; j++) {
+            if (numero % j == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private static void imprimeVetor(int [] vetor){
+        System.out.print("{");
+        for (int i = 0; i < vetor.length; i++) {
+            System.out.print(vetor[i] + ",");
+        }
+        System.out.println("}");
+    }
+
+}

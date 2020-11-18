@@ -1,0 +1,52 @@
+package exercicio04;
+
+/**
+ *
+ * @author Jhonathan dos reis
+ */
+
+public class Numero4 {
+
+    public static void main(String[] args) {
+
+        int estrelas = 10;
+        char letra;
+        System.out.print("(a)");
+        imprimir('a', 0);
+        System.out.println("(b)");
+        imprimir('b', 10);
+        System.out.println("(c)");
+        imprimir('c', 10);
+        System.out.println("(d)");
+        imprimir('d', 0);
+
+    }
+
+    public static void imprimir(char letra, int quantidade) {
+
+        for (int linha = 0; linha < 10; linha++) { // linhas   (c)
+
+            if (letra == 'c') {
+                for (int i = 0; i < linha; i++) {
+                    System.out.print(" ");
+                }
+            }
+            if (letra == 'd') {
+                for (int i = 10; i > linha; i--) {
+                    System.out.print(" ");
+                }
+            }
+            for (int j = 0; j < quantidade; j++) { //
+                System.out.print("*");
+            }
+            System.out.println("");
+            if (letra == 'a' || letra == 'd') {
+                quantidade++;
+            } else if (letra == 'b' || letra == 'c') {
+                quantidade--;
+            }
+
+        }
+    }
+
+}
