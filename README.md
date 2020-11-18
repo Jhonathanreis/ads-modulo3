@@ -16,7 +16,7 @@ Repositório destinado as matérias do semestre
 </p>
 <br>
 
-## 📚 Contexto do Problema
+## 📚 Contexto
 
 - SEMESTRE LETIVO: 2020/3
 
