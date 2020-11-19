@@ -20,28 +20,3 @@
 *.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/aps/CadUserDesk/nbproject/private/
-/aps/CadMiniatura_Jhonathan/build/
-/aps/CadMiniatura_Jhonathan/dist/
-/aps/CadUserDesk/build/
-/pp/Padrao_Singleton_Aviao/nbproject/private/
-/pp/Padrao_Singleton_Aviao/build/
-/pp/Padrao_Decorator_Cafe/nbproject/private/
-/pp/Padrao_Decorator_Cafe/build/
-/pp/Padrao_TemplateMethod_Ordenacao/nbproject/private/
-/pp/Padrao_TemplateMethod_Ordenacao/build/
-/pp/Padrao_TemplateMethod/nbproject/private/
-/pp/Padrao_TemplateMethod/build/
-/pp/Padrao_FactoryMethod_ControleDeGastos/nbproject/private/
-/pp/Padrao_FactoryMethod_ControleDeGastos/build/
-/pp/Padrao_FactoryMethod_ControleDeGastosHotel/build/
-/pp/Padrao_FactoryMethod_ControleDeGastosHotel/nbproject/private/
-/pp/Padrao_FactoryMethod_ControleDeGastosHotel/dist/
-/ed/ProjetoFila/nbproject/private/
-/aps/CadMiniaturaJhonathan/nbproject/private/
-/aps/CadMiniaturaJhonathan/build/
-/aps/CadMiniaturaJhonathan/dist/
-/mbd/Projeto_Torrentz_Filmes/nbproject/private/
-/mbd/Projeto_Torrentz_Filmes/build/
-/mbd/Projeto_Torrentz_Filmes/dist/
