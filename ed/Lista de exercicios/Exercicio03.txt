@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class NotasSalas {
     public static void main(String[] args) {
- // @author Gustavo Gabriel 
         Scanner input = new Scanner(System.in);
         double notas[] = new double[10];
         int a=0,b=0,c=0,d=0,e=0, total4e5 = 0;
